@@ -11,6 +11,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Microsoft.OpenApi.Models;
+using shortestpath_webapi.Services;
 
 namespace shortestpath_webapi
 {
@@ -28,6 +29,7 @@ namespace shortestpath_webapi
         {
 
             services.AddControllers();
+            services.AddSingleton<IGraphSearchService, GraphSearchService>();
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "shortestpath_webapi", Version = "v1" });
