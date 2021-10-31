@@ -20,7 +20,6 @@ namespace shortestpath_webapi.Services
             Queue<int> bfsQueue = new Queue<int>();
             int visited = 0;
 
-            int[] dist = new int[26];
             int[] pred = new int[26];
 
             var fromIndex = Index(from);
@@ -28,7 +27,6 @@ namespace shortestpath_webapi.Services
 
             for (int i = 0; i < 26; i++)
             {
-                dist[i] = i == fromIndex ? 1 << i : 0;
                 pred[i] = -1;
             }
             
@@ -46,23 +44,28 @@ namespace shortestpath_webapi.Services
                 {
                     if (! IsVisited(visited, neighbor))
                     {
-                        dist[neighbor] = dist[current] | (1 << neighbor);
                         pred[neighbor] = current;
+
+                        if (neighbor == toIndex)
+                        {
+                            bfsQueue.Clear();
+                            break;
+                        }
+                        
                         bfsQueue.Enqueue(neighbor);
                     }
-                    
                 }
 
                 visited = SetCurrentVisited(visited, current);
             }
             
-            if(dist[toIndex] == 0) return "No Connection";
+            if(pred[toIndex] == -1) return "No Connection";
 
             var crawl = toIndex;
             var result = string.Empty;
             while (crawl >= 0)
             {
-                result = $"{Value(crawl)},{result}";
+                result = string.IsNullOrEmpty(result)? Value(crawl).ToString() : $"{Value(crawl)},{result}";
                 crawl = pred[crawl];
             }
 
