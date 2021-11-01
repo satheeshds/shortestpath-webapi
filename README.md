@@ -43,6 +43,9 @@ cd shortestpath-webapi/src/
 
 docker build -t shortestpath-webapi -f shortestpath-webapi/Dockerfile .
 
+docker run -p 8085:80 shortestpath-webapi
+```
+```
 Open browser on http://localhost:8085/swagger/index.html
 
 ```
