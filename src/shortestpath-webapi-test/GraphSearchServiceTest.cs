@@ -1,4 +1,5 @@
 using NUnit.Framework;
+using shortestpath_webapi.Repository;
 using shortestpath_webapi.Services;
 
 namespace shortestpath_webapi_test
@@ -12,7 +13,7 @@ namespace shortestpath_webapi_test
         [SetUp]
         public void Setup()
         {
-            _graphSearchService = new GraphSearchService();
+            _graphSearchService = new GraphSearchService(new InMemoryRepository());
         }
 
         [Test]
