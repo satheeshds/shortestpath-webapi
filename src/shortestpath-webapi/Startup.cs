@@ -1,7 +1,9 @@
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
+using LiteDB;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -33,6 +35,12 @@ namespace shortestpath_webapi
             services.AddScoped<IGraphSearchService, GraphSearchService>();
             //services.AddSingleton<IDataRepository, InMemoryRepository>();
             services.AddSingleton<IDataRepository, LiteDbRepository>();
+            services.AddSingleton<ILiteDatabase>(db =>
+            {
+                var folder = Environment.SpecialFolder.LocalApplicationData;
+                var path = Environment.GetFolderPath(folder);
+                return new LiteDatabase($"{path}{Path.DirectorySeparatorChar}Graph.db");
+            });
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "shortestpath_webapi", Version = "v1" });

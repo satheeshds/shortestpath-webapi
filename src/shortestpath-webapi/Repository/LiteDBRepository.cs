@@ -6,14 +6,12 @@ namespace shortestpath_webapi.Repository
 {
     public class LiteDbRepository : IDataRepository
     {
-        private readonly LiteDatabase _database;
+        private readonly ILiteDatabase _database;
         private readonly ILiteCollection<LiteDbGraphNode> _graph;
 
-        public LiteDbRepository()
+        public LiteDbRepository(ILiteDatabase liteDatabase)
         {
-            var folder = Environment.SpecialFolder.LocalApplicationData;
-            var path = Environment.GetFolderPath(folder);
-            _database = new LiteDatabase($"{path}{Path.DirectorySeparatorChar}Graph.db");
+            _database = liteDatabase;
             _graph = _database.GetCollection<LiteDbGraphNode>("GraphNodes");
         }
 
