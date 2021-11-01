@@ -31,7 +31,8 @@ namespace shortestpath_webapi
 
             services.AddControllers();
             services.AddScoped<IGraphSearchService, GraphSearchService>();
-            services.AddSingleton<IDataRepository, InMemoryRepository>();
+            //services.AddSingleton<IDataRepository, InMemoryRepository>();
+            services.AddSingleton<IDataRepository, LiteDbRepository>();
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "shortestpath_webapi", Version = "v1" });

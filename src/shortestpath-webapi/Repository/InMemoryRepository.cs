@@ -17,11 +17,6 @@ namespace shortestpath_webapi.Repository
             }
         }
 
-        public int[] GetAllConnections()
-        {
-            return _graph.OrderBy(x => x.Key).Select(x => x.Value).ToArray();
-        }
-
         public void SaveConnection(char key, int connection)
         {
             _graph[key] = connection;
